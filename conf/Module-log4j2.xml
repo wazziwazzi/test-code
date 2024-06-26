@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+ <Properties>
+  <Property name="layoutPattern1">%style{%d{yyyy/MM/dd HH:mm:ss.SSS}}{cyan} [%C] %style{[%t]}{yellow} %highlight{[%-5p]}{FATAL=bg_red, ERROR=red, INFO=green, DEBUG=blue} - %m%n</Property>
+  <Property name="layoutPattern2">%style{%d{yyyy/MM/dd HH:mm:ss.SSS}}{cyan} %highlight{[%-5p]}{FATAL=bg_red, ERROR=red, INFO=green, DEBUG=blue} - %m%n</Property>
+ </Properties>
+ <Appenders>
+  <Console name="console" target="SYSTEM_OUT">
+   <PatternLayout pattern="${layoutPattern2}"/>
+  </Console>
+  <RollingFile name="file" fileName="./logs/Module.log" filePattern="./logs/Module.%d{yyyy-MM-dd}_%i.log">
+   <PatternLayout pattern="${layoutPattern2}"/>
+   <Policies>
+    <SizeBasedTriggeringPolicy size="1MB"/>
+	<TimeBasedTriggeringPolicy interval="1"/>
+   </Policies>
+  </RollingFile>
+ </Appenders>
+ <Loggers>
+  <Logger name="com.dsmentoring" level="INFO" additivity="false">
+   <AppenderRef ref="console"/>
+   <AppenderRef ref="file"/>
+  </Logger>
+  <Root level="DEBUG">
+   <AppenderRef ref="console"/>
+   <AppenderRef ref="file"/>
+  </Root>
+ </Loggers>
+ 
+</Configuration>
